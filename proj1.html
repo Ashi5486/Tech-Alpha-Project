@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Age Calculator</title>
+  <style>
+    * {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(orange, white,green);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .main {
+      height: 50vh;
+      width: 40vw;
+      background-color:rgb(173, 186, 230);
+      border-radius: 8%;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 8px;
+      color: white;
+    }
+
+    .calc {
+      margin: 10px auto;
+      padding: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    h4 {
+      padding: 3px;
+      font-size: 20px;
+      color: white;
+    }
+
+    #dob {
+      border: 2px solid purple;
+      border-radius: 15px;
+      padding: 0px 4px 5px 10px;
+      font-size: 18px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    button {
+      border-radius: 15px;
+      padding: 8px 16px;
+      background-color: black;
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .content {
+      width: 100%;
+      height: 100px;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .Year,
+    .Month,
+    .Day {
+      height: 60px;
+      border-radius: 10px;
+      width: 30%;
+      background-color: black;
+      text-align: center;
+      color: white;
+    }
+
+    p {
+      margin-top: 15px;
+    }
+h5{
+    border-top: 1px solid white;
+    font-size: 18px;
+    font-weight: 800;
+    font-family:  
+}
+    @media only screen and (max-width: 768px) {
+      .main {
+        width: 80vw;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="main">
+    <h1>Age Calculator</h1>
+    <div class="calc">
+      <h4>Enter Your Date of Birth:</h4>
+      <input type="date" id="dob">
+      <div>
+        <button type="submit" onclick="calculateAge()">Calculate</button>
+        <button onclick="resetFields()">Reset</button>
+      </div>
+    </div>
+    <div class="content">
+      <div class="Year">
+          <p id="Year">-</p>
+          <h5>Year</h5>
+      </div>
+      <div class="Month">
+        <p id="Month">-</p>
+        <h5>Month</h5>
+      </div>
+      <div class="Day">
+        <p id="Day">-</p>
+        <h5>Day</h5>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function calculateAge() {
+      var dobInput = document.getElementById("dob").value;
+      var dob = new Date(dobInput);
+      var today = new Date();
+
+      var age = today.getFullYear() - dob.getFullYear();
+      var m = today.getMonth() - dob.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+        age--;
+        m += 12;
+      }
+      var d = today.getDate() - dob.getDate();
+      if (d < 0) {
+        m--;
+        var prevMonth = new Date(today);
+        prevMonth.setMonth(today.getMonth() - 1);
+        var daysInPrevMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+        d += daysInPrevMonth;
+      }
+
+      var years = age;
+      var months = m;
+      var days = d;
+
+      document.getElementById("Year").textContent = years;
+      document.getElementById("Month").textContent = months;
+      document.getElementById("Day").textContent = days;
+    }
+
+    function resetFields() {
+      document.getElementById("dob").value = "";
+      document.getElementById("Year").textContent = "-";
+      document.getElementById("Month").textContent = "-";
+      document.getElementById("Day").textContent = "-";
+    }
+  
+  </script>
+</body>
+</html>
